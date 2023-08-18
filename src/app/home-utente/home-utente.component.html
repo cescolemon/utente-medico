@@ -1,0 +1,21 @@
+
+<mat-toolbar>
+    <mat-icon>home</mat-icon>
+    <span class="spacer"></span>
+    <button mat-button (click)="goToApp()">Appuntamenti</button>
+    <span class="spacer"></span>
+    <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+<br>
+<br>
+<mat-card>
+    <mat-card-title style="text-align: center; color: white;">Benvenuto {{nome}}</mat-card-title>
+    <mat-card-content>
+        <p *ngIf="appuntamentiLength!=0">Qui puoi visualizzare il tuo ultimo appuntamento
+            <br>
+            <br>
+            In data: {{ ultimoAppuntamento.data | date:'dd/MM/yyyy' }} con il medico {{ ultimoAppuntamento.medico.nome}}
+        </p>
+        <p *ngIf="appuntamentiLength==0">Non hai ancora prenotato nessun appuntamento</p>
+    </mat-card-content>
+</mat-card>

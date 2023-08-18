@@ -1,0 +1,64 @@
+
+<mat-toolbar>
+    <mat-icon>home</mat-icon>
+    <span class="spacer"></span>
+    <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+<br>
+<br>
+<mat-card>
+    <mat-card-title style="text-align: center; color:white">Benvenuto {{nome}}</mat-card-title>
+    <mat-card-content>
+        <p>Qui puoi visualizzare la lista dei tuoi appuntamenti ed eliminare quelli selezionati</p>
+        <button mat-stroked-button color="basic" (click)="delete()">Elimina</button>
+        <br>
+        <div class="mat-elevation-z8">
+
+  
+      <div *ngIf="appuntamentilength==0" class="nessun-appuntamento">{{ nessunAppuntamentoMessage }}</div>
+            <table mat-table [dataSource]="dataSource">
+          
+               <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+  <div *matNoDataRow>Nessun appuntamento trovato!</div>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let element"> {{element.utente.nome}} </td>
+              </ng-container>
+          
+              <!-- Weight Column -->
+              <ng-container matColumnDef="data">
+                <th mat-header-cell *matHeaderCellDef> Data </th>
+                <td mat-cell *matCellDef="let element"> {{element.data | date:'dd/MM/yyyy' }} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+          
+          
+    </mat-card-content>
+</mat-card>

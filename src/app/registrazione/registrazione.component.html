@@ -1,0 +1,31 @@
+<h1 class="display-2">Registrazione Nuovo Utente</h1>
+  <div class="container text-center" style="background-color: darkslateblue; margin-top: 5%; ">
+    <div class="row">
+    <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto; margin-top: 2%;">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" required>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto;">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto;">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" formControlName="email" placeholder="nome@nanosoft.com" required>
+        <mat-error *ngIf="regForm.get('email')?.invalid">Not a valid email</mat-error>
+    </mat-form-field>
+  </div>
+  <p class="lead">
+    Se hai un account effettua il login <a routerLink="/login">qui</a>
+  </p>
+    <button mat-stroked-button color="accent" [disabled]="!regForm.valid" (click)="register()" style="margin-bottom: 1%; margin-left: 80%;">Registrati</button>
+  </div>
+
+
