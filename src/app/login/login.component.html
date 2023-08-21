@@ -4,7 +4,7 @@
     <div class="row">
     <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto; margin-top: 2%;">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="username" required>
+        <input type="email" matInput formControlName="username" required>
     </mat-form-field>
   </div>
   <div class="row">
@@ -30,5 +30,5 @@
 </p>
     <button mat-stroked-button color="accent" [disabled]="!regForm.valid" (click)="login()" style="margin-bottom: 1%; margin-left: 80%;">Accedi</button>
   </div>
-
+  <app-footer></app-footer>
 

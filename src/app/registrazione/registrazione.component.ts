@@ -32,15 +32,10 @@ export class RegistrazioneComponent implements OnInit{
     this.ut.nome =this.regForm.value.nome!;
     this.uservice.registerUtente(this.ut).subscribe(
       (response: any) => {
-        // Gestisci la risposta testo qui
         console.log('Risposta dal server:', response);
-    
-        // Esegui ulteriori azioni a seconda della risposta
         if (response === 'Utente creato correttamente!') {
-          // La registrazione è avvenuta con successo
           this.router.navigate(['/login']);
         } else {
-          // La registrazione ha restituito un messaggio diverso
           console.error('Registrazione fallita:', response);
         }
       },

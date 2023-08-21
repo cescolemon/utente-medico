@@ -31,9 +31,8 @@ export class UtenteService implements Uservice {
     return this.http.get<Appuntamento[]>(url);
   }
   registerAppuntamento(id_utente: string, id_medico: string, data: string): Observable<any> {
-    const url = `${this.utenteuri}/prenotazione`;
-    const body = { id_utente, id_medico, data };
-    return this.http.post(url, body);
+    const url = `${this.utenteuri}/prenotazione?id_utente=`+id_utente+`&id_medico=`+id_medico+`&data=`+data;
+    return this.http.post(url, null);
   }
   deleteAppuntamento(id_appuntamento: number): Observable<any> {
     const url = `${this.utenteuri}/${id_appuntamento}`;

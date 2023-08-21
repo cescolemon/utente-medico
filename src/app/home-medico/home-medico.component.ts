@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '
 import { Router } from '@angular/router';
 import { MedicoService } from '../services/medico.service';
 import { Appuntamento } from '../model/appuntamento';
-import {MatTableModule,MatTableDataSource, MatTableDataSourcePaginator, MatTable} from '@angular/material/table';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTableDataSource, MatTable} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UtenteService } from '../services/utente.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogSuccesComponent } from '../dialog-succes/dialog-succes.component';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { UtenteService } from '../services/utente.service';
   styleUrls: ['./home-medico.component.css']
 })
 
-export class HomeMedicoComponent implements OnInit {
+export class HomeMedicoComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['select', 'nome', 'data'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatTable) table: MatTable<any>;
@@ -23,6 +24,7 @@ export class HomeMedicoComponent implements OnInit {
   dataSource: MatTableDataSource<Appuntamento>;
   selection = new SelectionModel<Appuntamento>(true, []);
   appuntamentilength: number = 0;
+  isButtonEnable:boolean =true;
 
 
   ngAfterViewInit() {
@@ -31,7 +33,12 @@ export class HomeMedicoComponent implements OnInit {
   
   nessunAppuntamentoMessage: string='Non ci sono appuntamenti in programma';
   nome='';
-  constructor(private router: Router, private mservice: MedicoService,  private changeDetectorRefs: ChangeDetectorRef, private uservice : UtenteService) { }
+  constructor(private router: Router, private mservice: MedicoService,
+      private changeDetectorRefs: ChangeDetectorRef, private uservice : UtenteService, private dialog: MatDialog) {
+        this.selection.changed.subscribe( () =>{​​​​​​​​
+          this.isButtonEnable = this.selection.selected.length == 0;
+              }​​​​​​​​)
+       }
 
   ngOnInit(): void {
     localStorage.getItem('nome') ? this.nome = localStorage.getItem('nome')! : this.nome = '';
@@ -71,9 +78,12 @@ export class HomeMedicoComponent implements OnInit {
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
+      this.isButtonEnable = true;
       return;
     }
     this.selection.select(...this.dataSource.data);
+    this.isButtonEnable = false;
+
   }
 
   checkboxLabel(row?: Appuntamento): string {
@@ -81,6 +91,12 @@ export class HomeMedicoComponent implements OnInit {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+  openSuccesDialog(message: string): void {
+    this.dialog.open(DialogSuccesComponent, {
+      width: '250px',
+      data: message,
+    });
   }
 
   delete(): void{
@@ -90,5 +106,6 @@ export class HomeMedicoComponent implements OnInit {
         console.log(app);
       }
       this.selection.clear();
+      this.refresh();
     }
 }

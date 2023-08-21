@@ -22,6 +22,11 @@ import { MatInputModule } from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DialogSuccesComponent } from './dialog-succes/dialog-succes.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AppUtenteComponent,
     FooterComponent,
     RegistrazioneComponent,
+    ErrorDialogComponent,
+    DialogSuccesComponent,
 
   ],
   imports: [
@@ -50,7 +57,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatNativeDateModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

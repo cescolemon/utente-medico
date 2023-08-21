@@ -1,1 +1,58 @@
-<p>app-utente works!</p>
+
+<mat-toolbar class="fixed-top">
+    <button mat-icon-button style="margin-left: -1%;" (click)="goToHome()">
+    <mat-icon>home</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <button mat-button style="margin-left: 1%;" (click)="logout()">Logout</button>
+</mat-toolbar>
+<br>
+<br>
+<mat-card style="margin-top: 2%;">
+    <mat-card-content>
+        <p style="color: white;">Qui puoi visualizzare i medici disponibili per un appuntamento</p>
+        <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let element"> {{element.nome }} </td>
+              </ng-container>
+              <ng-container matColumnDef="specializzazione">
+                <th mat-header-cell *matHeaderCellDef> Specializzazione </th>
+                <td mat-cell *matCellDef="let element"> {{element.specializzazione}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-content style="background-color: darkslategrey;">
+        <h1 class="display-6">Prenota un appuntamento qui sotto</h1>
+        <mat-form-field [formGroup]="appForm" appearance="outline" color="accent">
+            <mat-label>Seleziona una data</mat-label>
+            <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" formControlName="data" required>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <br>
+          <mat-form-field [formGroup]="appForm" appearance="outline" color="accent" style="width: min-content; margin: auto; margin-top: 2%;">
+            <mat-label>Id Medico</mat-label>
+            <input type="number" matInput formControlName="id_medico" required>
+        </mat-form-field>   
+        <button mat-stroked-button color="accent" [disabled]="!appForm.valid" (click)="prenota()" style="margin-bottom: 1%; margin-left: 92%;">Conferma</button>
+    </mat-card-content>
+</mat-card>
+<app-footer></app-footer>
