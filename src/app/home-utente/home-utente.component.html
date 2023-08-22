@@ -21,6 +21,8 @@
     </mat-card>
 <br>
 <div class="mat-elevation-z8">
+  <p>Qui puoi visualizzare la lista di tutti gli appuntamenti ed eliminarli.</p>
+  <br>
   <button mat-stroked-button color="basic" (click)="delete()" [disabled]="isButtonEnable">Elimina</button>
 <table mat-table [dataSource]="dataSource">        
   <ng-container matColumnDef="select">
@@ -39,6 +41,8 @@
       </mat-checkbox>
     </td>
   </ng-container>
+
+  <div *matNoDataRow>Nessun appuntamento trovato!</div>
               <ng-container matColumnDef="nome">
                 <th mat-header-cell *matHeaderCellDef> Medico </th>
                 <td mat-cell *matCellDef="let element"> {{element.medico.nome}} </td>

@@ -25,10 +25,12 @@ export class HomeUtenteComponent implements AfterViewInit, OnInit {
   dataSource: MatTableDataSource<Appuntamento>;
   selection = new SelectionModel<Appuntamento>(true, []);
   isButtonEnable:boolean =true;
+  isPopupOpen:boolean = false;
 
   constructor( private router: Router, private uservice: UtenteService,
      private changeDetectorRefs: ChangeDetectorRef, private dialog: MatDialog) { 
-    this.selection.changed.subscribe( () =>{​​​​​​​​
+      this.dataSource = new MatTableDataSource();
+      this.selection.changed.subscribe( () =>{​​​​​​​​
       this.isButtonEnable = this.selection.selected.length == 0;
           }​​​​​​​​)
   }
@@ -40,14 +42,9 @@ export class HomeUtenteComponent implements AfterViewInit, OnInit {
       this.ultimoAppuntamento = appuntamenti[appuntamenti.length - 1];
       this.appuntamentiLength = appuntamenti.length;
       this.appuntamenti = appuntamenti;
-      this.dataSource.data =this.appuntamenti;
-      this.dataSource.paginator = this.paginator;
-      this.changeDetectorRefs.detectChanges();
     }, error => {
       console.error(error);
-      this.dataSource = null!;
-      this.dataSource.paginator = this.paginator;
-      this.changeDetectorRefs.detectChanges();
+      this.appuntamenti=null!;
     });
     this.refresh();
   }
@@ -65,11 +62,13 @@ export class HomeUtenteComponent implements AfterViewInit, OnInit {
       this.changeDetectorRefs.detectChanges();
     },error => {
       console.error(error);
-      this.dataSource = null!;
+      this.dataSource = new MatTableDataSource();
       this.dataSource.paginator = this.paginator;
       this.changeDetectorRefs.detectChanges();
     });
   }
+  
+
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -88,11 +87,17 @@ export class HomeUtenteComponent implements AfterViewInit, OnInit {
   }
 
   openSuccesDialog(message: string): void {
-    this.dialog.open(DialogSuccesComponent, {
+    if (!this.isPopupOpen) {
+      this.isPopupOpen = true;
+    const dialogRef=this.dialog.open(DialogSuccesComponent, {
       width: '250px',
       data: message,
     });
+    dialogRef.afterClosed().subscribe(() => {
+      this.isPopupOpen = false;
+    });
   }
+}
 
   checkboxLabel(row?: Appuntamento): string {
     if (!row) {

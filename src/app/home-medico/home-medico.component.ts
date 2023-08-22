@@ -25,7 +25,7 @@ export class HomeMedicoComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<Appuntamento>(true, []);
   appuntamentilength: number = 0;
   isButtonEnable:boolean =true;
-
+  isPopupOpen:boolean = false;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -35,6 +35,7 @@ export class HomeMedicoComponent implements OnInit, AfterViewInit {
   nome='';
   constructor(private router: Router, private mservice: MedicoService,
       private changeDetectorRefs: ChangeDetectorRef, private uservice : UtenteService, private dialog: MatDialog) {
+        this.dataSource = new MatTableDataSource();
         this.selection.changed.subscribe( () =>{​​​​​​​​
           this.isButtonEnable = this.selection.selected.length == 0;
               }​​​​​​​​)
@@ -66,7 +67,12 @@ export class HomeMedicoComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource(uts);
       this.dataSource.paginator = this.paginator;
       this.changeDetectorRefs.detectChanges();
-    })
+    },error => {
+      console.error(error);
+      this.dataSource = new MatTableDataSource();
+      this.dataSource.paginator = this.paginator;
+      this.changeDetectorRefs.detectChanges();
+    });
   }
 
   isAllSelected() {
@@ -93,11 +99,18 @@ export class HomeMedicoComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
   openSuccesDialog(message: string): void {
-    this.dialog.open(DialogSuccesComponent, {
+    if (!this.isPopupOpen) {
+      this.isPopupOpen = true;
+    const dialogRef=this.dialog.open(DialogSuccesComponent, {
       width: '250px',
       data: message,
     });
+    dialogRef.afterClosed().subscribe(() => {
+      this.isPopupOpen = false;
+    });
   }
+}
+
 
   delete(): void{
     for (let app of this.selection.selected){

@@ -4,6 +4,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit{
     role: new FormControl('', [Validators.required])
   });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) {}
   ngOnInit(): void {
     this.regForm.get('username')!.valueChanges.subscribe(val => {this.username = val!; } );
     this.regForm.get('password')!.valueChanges.subscribe(val => {this.password = val!; } );
@@ -42,8 +44,6 @@ export class LoginComponent implements OnInit{
         const nome = response.nome;
         const userRole = response.authorities[0].authority; 
         const id = response.id;
-      
-        // Salva il token nel local storage o in un cookie
         localStorage.setItem('jwtToken', token);
         localStorage.setItem('nome', nome); 
         localStorage.setItem('authorities', userRole); 
@@ -58,8 +58,18 @@ export class LoginComponent implements OnInit{
         }
        
       }),
-      catchError(() => throwError(new Error('Errore durante il login')))
+      catchError((err: any) => {
+        this.openErrorDialog('Credenziali errate');
+        throw err; 
+      })
     ).subscribe();
+  }
+
+  openErrorDialog(errorMessage: string): void {
+    this.dialog.open(ErrorDialogComponent, {
+      width: '250px',
+      data: errorMessage,
+    });
   }
 
 

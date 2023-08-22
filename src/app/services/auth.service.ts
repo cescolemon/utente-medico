@@ -22,12 +22,13 @@ export class AuthService {
     return this.http.post(`${this.loginuri}/login`, credentials);
   }
 
- // Verifica se l'utente è autenticato
+  getUserRole(): string {
+    const role = localStorage.getItem('authorities');
+    return role!;
+  }
+
  isAuthenticated(): boolean {
-  // Implementa la logica per verificare se l'utente è autenticato.
-  // Puoi utilizzare il token JWT o altre informazioni di autenticazione.
-  // Restituisci true se l'utente è autenticato, altrimenti false.
   const token = localStorage.getItem('jwtToken');
-  return !!token; // Verifica se il token esiste
+  return !!token; 
 }
 }
