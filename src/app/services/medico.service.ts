@@ -21,7 +21,7 @@ export class MedicoService implements Mservice {
 
   constructor(private http: HttpClient) { }
   registerMedico(med: Medico): Observable<any> {
-    return this.http.post<Medico>(this.medicouri + '/register', med, this.httpOptions);
+    return this.http.post<Medico>(this.medicouri + '/register', med, { responseType: 'text' as 'json'});
   }
   getAllAppuntamentiMedico(id_medico: string): Observable<any> {
     return this.http.get(`${this.medicouri}/appuntamenti?id_medico=${id_medico}`).pipe(

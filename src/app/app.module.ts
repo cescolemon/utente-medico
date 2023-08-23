@@ -28,6 +28,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DialogSuccesComponent } from './dialog-succes/dialog-succes.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { RegistrazioneMedicoComponent } from './registrazione-medico/registrazione-medico.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     RegistrazioneComponent,
     ErrorDialogComponent,
     DialogSuccesComponent,
+    RegistrazioneMedicoComponent,
+    HomeComponent,
 
   ],
   imports: [

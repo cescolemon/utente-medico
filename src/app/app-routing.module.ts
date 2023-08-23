@@ -6,15 +6,18 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { HomeMedicoComponent } from './home-medico/home-medico.component';
 import { RegistrazioneComponent } from './registrazione/registrazione.component';
+import { RegistrazioneMedicoComponent } from './registrazione-medico/registrazione-medico.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
 
-  { path: '', component: RegistrazioneComponent},
+  { path: '', component: HomeComponent},
+  { path: 'user/register', component: RegistrazioneComponent},
+  { path: 'doctor/register', component: RegistrazioneMedicoComponent},
   { path: 'login', component: LoginComponent},
   { path: 'user', component: HomeUtenteComponent, canActivate: [AuthGuard],  data: { roles: ['ROLE_USER'] }},
   { path: 'user/appuntamenti', component: AppUtenteComponent,  canActivate: [AuthGuard], data: { roles: ['ROLE_USER'] } },
-  { path: 'doctor', component: HomeMedicoComponent, canActivate: [AuthGuard],  data: { roles: ['ROLE_MEDICO'] }},
-  { path: 'registrazione', component: RegistrazioneComponent},
+  { path: 'doctor', component: HomeMedicoComponent, canActivate: [AuthGuard],  data: { roles: ['ROLE_MEDICO'] }}
 ];
 
 @NgModule({
