@@ -1,11 +1,13 @@
 
 <h1 class="display-2">Login</h1>
+
   <div class="container text-center" style="background-color: darkslateblue; margin-top: 5%; ">
-    <div class="row">
-    <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto; margin-top: 2%;">
+    <div class="row" style="display: block; ">
+    <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto; margin-top: 2%; margin-left: 2.8%;">
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="username" required>
     </mat-form-field>
+    <mat-icon style="width: min-content; padding-left: 0;" matTooltip={{tooltip}}>help</mat-icon>
   </div>
   <div class="row">
     <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto;">

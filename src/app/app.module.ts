@@ -27,6 +27,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DialogSuccesComponent } from './dialog-succes/dialog-succes.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { DialogSuccesComponent } from './dialog-succes/dialog-succes.component';
     MatDatepickerModule,
     MatDialogModule,
     MatNativeDateModule,
+    MatTooltipModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
