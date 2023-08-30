@@ -1,4 +1,5 @@
-# UtenteMedico
+# UtenteMedico/Frontend
+Implementazione Frontend del progetto UtenteMedico, con authGuard e gestione JsonToken jwt con cookie.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
