@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit{
   username = '';
   password = '';
   role='';
-  tooltip = 'Email deve comprendere utente_/medico_ ex: utente_nome@nanosoft.com';
+  tooltip = 'Email deve comprendere utente_/medico_ ex: utente_nome@example.com';
   
 
 

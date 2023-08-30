@@ -18,7 +18,7 @@
   <div class="row">
     <mat-form-field [formGroup]="regForm" appearance="outline" color="accent" style="width: min-content; margin: auto;">
         <mat-label>Email</mat-label>
-        <input matInput type="text" formControlName="email" placeholder="nome@nanosoft.com" required>
+        <input matInput type="text" formControlName="email" placeholder="nome@example.com" required>
         <mat-error *ngIf="regForm.get('email')?.invalid">Not a valid email</mat-error>
     </mat-form-field>
   </div>
